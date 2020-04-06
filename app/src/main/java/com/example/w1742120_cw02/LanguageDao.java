@@ -4,6 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Transaction;
 import androidx.room.Update;
 
 import java.util.List;
@@ -16,6 +17,14 @@ public interface LanguageDao {
 
     @Update
     void updatelang(Language language);
+
+    /**
+     * Used to update a single Language Object in DB
+     * @param code Language Object passed to update relevent field
+     */
+    @Transaction
+    @Query("Update language_table set checkValue =:state where langId=:code")
+    void updateState(String code, int state);
 
     @Query("SELECT * FROM language_table WHERE langId= :id")
     Language getLang(String id);

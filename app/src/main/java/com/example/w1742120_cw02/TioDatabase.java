@@ -14,7 +14,7 @@ import com.ibm.watson.language_translator.v3.LanguageTranslator;
 
 import java.util.ArrayList;
 
-@Database(entities = {Phrase.class, Language.class}, version = 1 )
+@Database(entities = {Phrase.class, Language.class}, version = 2 )
 public abstract class TioDatabase extends RoomDatabase {
     private static final String LANG_API_KEY = "66Z8U81RxsQc9vOnoMptFC5VX3TFOgrg9yCjkAInZqhE";
     private static final String LANG_URL = "https://api.us-south.language-translator.watson.cloud.ibm.com/instances/8cc0fc59-c2a3-435d-916d-839db036f9ef";
@@ -88,14 +88,20 @@ public abstract class TioDatabase extends RoomDatabase {
 //            });
 
             for(Language language : languages){
-                languageDao.insertlang(language);
+                if (language.getLangId().equalsIgnoreCase("en")){
+                    language.setCheckValue(1);
+                    languageDao.insertlang(language);
+                }else{
+                    languageDao.insertlang(language);
+
+                }
             }
 
 //            Runnable runnable = () -> {
 //                Language language = languageDao.getLang("en");
 //                Log.i("language", "Retrieved/"+language.getLanguage());
 //                language.setCheckValue(1);
-//                languageDao.updatelang(language);
+//                languageDao.updateState(language.getLangId(), language.getCheckValue());
 //            };
 //
 //            runnable.run();
