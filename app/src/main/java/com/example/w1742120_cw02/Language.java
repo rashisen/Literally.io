@@ -7,12 +7,13 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "language_table")
 public class Language {
 
-    @PrimaryKey @NonNull
+    @PrimaryKey
+    @NonNull
     private String langId;
     private String language;
     private int checkValue;
 
-    public Language(String langId,String language) {
+    public Language(@NonNull String langId,String language) {
         this.langId = langId;
         this.language = language;
         this.checkValue = 0;
