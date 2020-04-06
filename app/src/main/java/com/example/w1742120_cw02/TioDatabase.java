@@ -80,31 +80,14 @@ public abstract class TioDatabase extends RoomDatabase {
                         Log.i("langname", item.getName());
                     });
 
-//            languages.forEach(item -> {
-//                Log.i("language", item.getLangId());
-//                if (item.getLangId().equalsIgnoreCase("en")) {
-//                    item.setCheckValue(1);
-//                }
-//            });
-
             for(Language language : languages){
                 if (language.getLangId().equalsIgnoreCase("en")){
                     language.setCheckValue(1);
                     languageDao.insertlang(language);
                 }else{
                     languageDao.insertlang(language);
-
                 }
             }
-
-//            Runnable runnable = () -> {
-//                Language language = languageDao.getLang("en");
-//                Log.i("language", "Retrieved/"+language.getLanguage());
-//                language.setCheckValue(1);
-//                languageDao.updateState(language.getLangId(), language.getCheckValue());
-//            };
-//
-//            runnable.run();
 
             return null;
         }
