@@ -12,20 +12,34 @@
         android:layout_height="wrap_content"
         android:padding="8dp">
 
-        <CheckBox
-            android:id="@+id/checkbox"
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/langCheck"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
 
-        <TextView
-            android:id="@+id/txt_rbview_phrase"
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/langID"
+            android:layout_marginTop="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="180dp"
+            android:layout_toStartOf="@id/langCheck"
+            android:layout_alignParentEnd="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            />
+
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/langName"
+            android:layout_marginTop="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_marginEnd="10dp"
-            android:layout_toStartOf="@id/checkbox"
+            android:layout_toStartOf="@id/langID"
             android:maxLines="1"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
