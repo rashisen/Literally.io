@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LanguageSubscriptionActivity"></activity>
+        <activity android:name=".TranslateActivity" />
+        <activity android:name=".LanguageSubscriptionActivity" />
         <activity android:name=".EditPhraseActivity" />
         <activity android:name=".DisplayPhraseActivity" />
         <activity android:name=".MainMenuActivity" />
@@ -23,6 +24,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".AddPhraseActivity" />
+        <activity android:name=".GetSavedPhrase" />
     </application>
 
 </manifest>

@@ -35,4 +35,9 @@ public class MainMenuActivity extends AppCompatActivity {
         Intent intent = new Intent(MainMenuActivity.this, LanguageSubscriptionActivity.class);
         startActivity(intent);
     }
+
+    public void translatePhrase(View view) {
+        Intent intent = new Intent(MainMenuActivity.this, TranslateActivity.class);
+        startActivity(intent);
+    }
 }

@@ -1,19 +1,25 @@
 package com.example.w1742120_cw02;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.os.Bundle;
 
 import java.util.List;
 
-public class DisplayPhraseActivity extends AppCompatActivity {
+public class GetSavedPhrase extends AppCompatActivity {
     private PhraseViewModel phraseViewModel;
+    private String selctedPhrase;
+    public static final String EXTRA_PHRASE = "com.example.w1742120_cw02.EXTRA_PHRASE";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_phrase);
 
@@ -33,5 +39,22 @@ public class DisplayPhraseActivity extends AppCompatActivity {
             }
         });
 
+        adapter.setOnCardClickListener(new AddPhraseAdapter.OnCardClickListener() {
+            @Override
+            public void onCardClick(Phrase phrase) {
+                Log.i("Translate sample text", "/PRE"+phrase.getDescription());
+                Intent intent = new Intent();
+                selctedPhrase = phrase.getDescription();
+                if (EXTRA_PHRASE != null){
+                    intent.putExtra(EXTRA_PHRASE,selctedPhrase);
+                    setResult(RESULT_OK, intent);
+                }else {
+                    intent.putExtra(EXTRA_PHRASE, "");
+                    setResult(RESULT_OK, intent);
+                }
+                finish();
+
+            }
+        });
     }
 }

@@ -16,4 +16,6 @@
     <string name="language_translator_url">https://api.us-south.language-translator.watson.cloud.ibm.com/instances/8cc0fc59-c2a3-435d-916d-839db036f9ef</string>
     <string name="cloudVersion">2018-05-01</string>
     <string name="lang_subscrip">Language Subscriptions</string>
+    <string name="get_saved_phrase">Get Saved Phrase</string>
+    <string name="translate_phrase">Translate Phrase</string>
 </resources>

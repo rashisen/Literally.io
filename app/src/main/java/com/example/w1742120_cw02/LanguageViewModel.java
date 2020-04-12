@@ -33,4 +33,8 @@ public class LanguageViewModel extends AndroidViewModel {
     public LiveData<List<Language>> getAllLanguages() {
         return allLanguages;
     }
+
+    public void setCheckState(Language language){
+        languageRepository.updateCheck(language);
+    }
 }

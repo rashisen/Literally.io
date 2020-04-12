@@ -13,6 +13,7 @@ import java.util.List;
 
 public class AddPhraseAdapter extends RecyclerView.Adapter<AddPhraseAdapter.PhraseHolder> {
     private List<Phrase> phrases = new ArrayList<>();
+    private OnCardClickListener listener;
 
     @NonNull
     @Override
@@ -45,6 +46,29 @@ public class AddPhraseAdapter extends RecyclerView.Adapter<AddPhraseAdapter.Phra
             super(itemView);
             textViewPhrase = itemView.findViewById(R.id.txt_view_phrase);
 
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (listener != null && position != RecyclerView.NO_POSITION){
+                        listener.onCardClick(phrases.get(position));
+                    }
+
+                }
+
+            });
+
         }
+
     }
+
+    public interface OnCardClickListener{
+        void onCardClick(Phrase phrase);
+    }
+
+    public void setOnCardClickListener(OnCardClickListener listener){
+        this.listener = listener;
+    }
+
 }

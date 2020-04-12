@@ -22,6 +22,10 @@ public class LanguageRepository {
         new InsertLangAsyncTask(languageDao).execute(language);
     }
 
+    public void updateCheck(Language language){
+        new UpdateCheckAsyncTask(languageDao).execute(language);
+    }
+
     public void update(Language language){
         new UpdateLangAsyncTask(languageDao).execute(language);
     }
@@ -87,6 +91,20 @@ public class LanguageRepository {
         @Override
         protected Void doInBackground(Void... voids) {
             languageDao.deleteAllLanguages();
+            return null;
+        }
+    }
+
+    private static class UpdateCheckAsyncTask extends AsyncTask<Language, Void, Void>{
+
+        private LanguageDao languageDao;
+
+        private UpdateCheckAsyncTask(LanguageDao languageDao){
+            this.languageDao = languageDao;
+        }
+        @Override
+        protected Void doInBackground(Language... languages) {
+            languageDao.updateState(languages[0].getLangId(), languages[0].getCheckValue());
             return null;
         }
     }

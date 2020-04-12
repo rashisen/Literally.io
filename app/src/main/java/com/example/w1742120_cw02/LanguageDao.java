@@ -20,7 +20,7 @@ public interface LanguageDao {
 
     /**
      * Used to update a single Language Object in DB
-     * @param code Language Object passed to update relevent field
+     * @param code Language Object passed to update relevant field
      */
     @Transaction
     @Query("Update language_table set checkValue =:state where langId=:code")
