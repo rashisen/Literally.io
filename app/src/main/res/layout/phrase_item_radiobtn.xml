@@ -17,6 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
 
         <TextView
@@ -26,6 +27,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:maxLines="1"
             android:layout_toStartOf="@id/radio_btn"
+            android:layout_centerVertical="true"
             android:layout_alignParentStart="true"/>
 
     </RelativeLayout>

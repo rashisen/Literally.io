@@ -1,66 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".TranslateActivity">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="60dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="40dp"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.307"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/language"
-        tools:ignore="ContentDescription" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/ap_header"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:fontFamily="sans-serif-black"
-        android:text="@string/translate_phrase"
-        android:textColor="#FE3DBC"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.063"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_margin="50dp"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.37"
+            app:srcCompat="@drawable/language"
+            tools:ignore="ContentDescription" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/ap_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/imageView"
+            android:text="@string/add_Phrase"
+            android:textColor="#FE3DBC"
+            android:textSize="32sp" />
+    </RelativeLayout>
 
 
     <LinearLayout
-        android:layout_width="360dp"
-        android:layout_height="574dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView">
+        android:layout_below="@id/header"
+        android:layout_marginHorizontal="20dp">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/getSvdPhraseBtn"
-            android:layout_width="42dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:onClick="getSavedPhrases"
-            android:text="+"
-            android:textAllCaps="false"
-            android:textSize="15sp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/getSvdPhraseBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="getSavedPhrases"
+                android:text="@string/get_saved_phrase"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                tools:ignore="RelativeOverlap">
 
-        </com.google.android.material.button.MaterialButton>
+            </com.google.android.material.button.MaterialButton>
+        </RelativeLayout>
+
+
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/addTphrase"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_marginHorizontal="30dp"
             android:hint="@string/enter_text_hint"
             android:textColorHint="@color/colorAccent"
             app:boxBackgroundColor="@color/colorSecondary"
@@ -75,43 +81,43 @@
                 android:gravity="top"
                 android:inputType="text"
                 android:textColor="@color/colorAccent" />
-
         </com.google.android.material.textfield.TextInputLayout>
 
-
-
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:layout_marginStart="30dp"
             android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/translateBtn"
-                android:onClick="translatePhrase"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="@string/translateBtn"
                 android:textAllCaps="false"
-                android:textSize="12sp">
+                android:textSize="16sp"
+                android:layout_alignParentStart="true"
+                android:onClick="translatePhrase"
+                android:layout_centerInParent="true"
+                tools:ignore="RelativeOverlap">
 
             </com.google.android.material.button.MaterialButton>
 
             <Spinner
                 android:id="@+id/langSpinner"
-                android:layout_width="165dp"
-                android:layout_height="35dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="14dp">
-
+                android:layout_width="200dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="14dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true">
             </Spinner>
-        </LinearLayout>
+
+        </RelativeLayout>
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_marginHorizontal="30dp"
             app:cardBackgroundColor="@color/colorPrimary">
 
             <LinearLayout
@@ -122,22 +128,21 @@
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/displayTphrase"
                     android:layout_width="match_parent"
-                    android:layout_height="148dp"
+                    android:layout_height="150dp"
                     android:textColor="@color/colorSecondary"
                     android:gravity="center"/>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/pronounceBtn"
-                    android:layout_width="39dp"
-                    android:layout_height="43dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:onClick="getPronunciation"
                     app:backgroundTint="@color/colorPrimary"
                     app:icon="@android:drawable/ic_lock_silent_mode_off"
                     app:iconGravity="end"
-                    app:iconTint="@color/colorSecondary">
-                </com.google.android.material.button.MaterialButton>
+                    android:padding="10dp"
+                    app:cornerRadius="40dp"
+                    app:iconTint="@color/colorSecondary"/>
 
             </LinearLayout>
 
@@ -147,4 +152,4 @@
 
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

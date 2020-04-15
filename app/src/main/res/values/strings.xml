@@ -1,13 +1,12 @@
 <resources>
-    <string name="app_name">w1742120_CW02</string>
-    <string name="appName">translate.io</string>
+    <string name="app_name">translate.io</string>
     <string name="appTagline">Your personal translator.</string>
-    <string name="appIBMtagline">POWERED BY IBM WATSON CLOUD SERVICES.</string>
+    <string name="appIBMtagline">Powered by IBM Cloud Services</string>
     <string name="add_Phrase">Add Phrase</string>
     <string name="editPhrase">EDIT PHRASE</string>
-    <string name="display_phrases">DISPLAY PHRASE</string>
-    <string name="language_subscriptions">LANGUAGE SUBSCRIPTIONS</string>
-    <string name="translate">TRANSLATE</string>
+    <string name="display_phrases">Display Phrase</string>
+    <string name="language_subscriptions">Language Subscriptions</string>
+    <string name="translate">Translate</string>
     <string name="enter_text_hint">Enter text......</string>
     <string name="save_and_submit">Save and Submit</string>
     <string name="edit_phrase">Edit Phrase</string>
@@ -16,11 +15,13 @@
     <string name="language_translator_url">https://api.us-south.language-translator.watson.cloud.ibm.com/instances/8cc0fc59-c2a3-435d-916d-839db036f9ef</string>
     <string name="cloudVersion">2018-05-01</string>
     <string name="lang_subscrip">Language Subscriptions</string>
-    <string name="get_saved_phrase">Get Saved Phrase</string>
     <string name="translate_phrase">Translate Phrase</string>
     <string name="translateBtn">Translate</string>
     <string name="textToSpeechAPIkey">sCCxVj8goFKoVntRaOQrSYGwGQq2SBqfWJdTi8PlZSVr</string>
     <string name="textToSpeechURL">https://api.us-south.text-to-speech.watson.cloud.ibm.com/instances/69578caf-9a4f-4a1d-85d6-e86a431aee3e</string>
     <string name="did_synthesize">Did synthesize</string>
     <string name="saved_phrases">Saved Phrases</string>
+    <string name="lang_subscriptions">Pick the languages you want</string>
+    <string name="get_saved_phrase">Use Saved Phrase</string>
+    <string name="type_something">Type Something</string>
 </resources>
