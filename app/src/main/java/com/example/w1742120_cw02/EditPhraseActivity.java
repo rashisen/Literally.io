@@ -16,6 +16,8 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import java.util.List;
 
 public class EditPhraseActivity extends AppCompatActivity {
@@ -82,6 +84,13 @@ public class EditPhraseActivity extends AppCompatActivity {
                         selectedPhrase.setDescription(text);
                         phraseViewModel.update(selectedPhrase);
 
+                        Snackbar.make(
+                                view,
+                                "Changes Saved.",
+                                Snackbar.LENGTH_SHORT
+
+                        ).show();
+
                     }
                 });
 
@@ -90,6 +99,13 @@ public class EditPhraseActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
+
+                        Snackbar.make(
+                                view,
+                                "Changes are not Saved.",
+                                Snackbar.LENGTH_SHORT
+
+                        ).show();
                     }
                 });
 

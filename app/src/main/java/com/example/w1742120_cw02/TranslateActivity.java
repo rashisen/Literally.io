@@ -1,27 +1,26 @@
 package com.example.w1742120_cw02;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.lifecycle.ViewModelProviders;
+
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textview.MaterialTextView;
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
 import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
-import com.ibm.cloud.sdk.core.service.exception.BadRequestException;
 import com.ibm.watson.developer_cloud.android.library.audio.StreamPlayer;
 import com.ibm.watson.language_translator.v3.LanguageTranslator;
 import com.ibm.watson.language_translator.v3.model.TranslateOptions;
@@ -30,7 +29,6 @@ import com.ibm.watson.text_to_speech.v1.TextToSpeech;
 import com.ibm.watson.text_to_speech.v1.model.SynthesizeOptions;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static com.example.w1742120_cw02.GetSavedPhrase.EXTRA_PHRASE;
 
@@ -56,7 +54,7 @@ public class TranslateActivity extends AppCompatActivity {
         // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         // finally change the color
-        window.setStatusBarColor(ContextCompat.getColor(this,R.color.colorSecondary));
+        window.setStatusBarColor(ContextCompat.getColor(this, R.color.colorSecondary));
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         setContentView(R.layout.activity_translate);
         phraseBox = findViewById(R.id.tPhrase);
@@ -68,34 +66,31 @@ public class TranslateActivity extends AppCompatActivity {
         //view model
         //noinspection deprecation
         LanguageViewModel languageViewModel = ViewModelProviders.of(this).get(LanguageViewModel.class);
-        languageViewModel.getAllSubscribedLanguages().observe(this, new Observer<List<Language>>() {
-            @Override
-            public void onChanged(List<Language> languages) {
-                for (Language lang: languages
-                     ) {
-                    String id = lang.getLangId();
-                    String name = lang.getLanguage();
-                    Log.i("lang", "onChanged: "+id);
-                    if (lang.getCheckValue()==1){
-                        langIdList.add(id);
-                        langNameList.add(name);
-
-                    }
+        languageViewModel.getAllSubscribedLanguages().observe(this, languages -> {
+            for (Language lang : languages
+            ) {
+                String id = lang.getLangId();
+                String name = lang.getLanguage();
+//                    Log.i("lang", "onChanged: "+id);
+                if (lang.getCheckValue() == 1) {
+                    langIdList.add(id);
+                    langNameList.add(name);
 
                 }
 
-                //dropdown list for subscribed languages
-                langSpinner = findViewById(R.id.langSpinner);
-                ArrayAdapter spinnerAdapter = new ArrayAdapter(TranslateActivity.this, android.R.layout.simple_spinner_item, langNameList.toArray());
-                spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                langSpinner.setAdapter(spinnerAdapter);
             }
+
+            //dropdown list for subscribed languages
+            langSpinner = findViewById(R.id.langSpinner);
+            ArrayAdapter spinnerAdapter = new ArrayAdapter(TranslateActivity.this, android.R.layout.simple_spinner_item, langNameList.toArray());
+            spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            langSpinner.setAdapter(spinnerAdapter);
         });
 
 
     }
 
-    private LanguageTranslator initLanguageTranslatorService(){
+    private LanguageTranslator initLanguageTranslatorService() {
         IamAuthenticator authenticator = new IamAuthenticator(getString(R.string.langTranslatorAPIKey));
         LanguageTranslator service = new LanguageTranslator(getString(R.string.cloudVersion), authenticator);
         service.setServiceUrl(getString(R.string.language_translator_url));
@@ -103,7 +98,7 @@ public class TranslateActivity extends AppCompatActivity {
     }
 
 
-    private static class TranslationTask extends AsyncTask<String,Void,String>{
+    private static class TranslationTask extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... params) {
@@ -116,9 +111,9 @@ public class TranslateActivity extends AppCompatActivity {
 
             try {
                 result = translationService.translate(translateOptions).execute().getResult();
-            }catch (com.ibm.cloud.sdk.core.service.exception.NotFoundException nfe){
+            } catch (com.ibm.cloud.sdk.core.service.exception.NotFoundException nfe) {
                 return "conversion service for this language is not available.";
-            }catch (com.ibm.cloud.sdk.core.service.exception.BadRequestException bre){
+            } catch (com.ibm.cloud.sdk.core.service.exception.BadRequestException bre) {
                 return "Cannot convert phrases to the same language";
             }
 
@@ -140,18 +135,24 @@ public class TranslateActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode ==PHRASE_REQUEST && resultCode == RESULT_OK && !data.getStringExtra(EXTRA_PHRASE).equalsIgnoreCase("")){
+        if (requestCode == PHRASE_REQUEST && resultCode == RESULT_OK && !data.getStringExtra(EXTRA_PHRASE).equalsIgnoreCase("")) {
             String phrase = data.getStringExtra(EXTRA_PHRASE);
             phraseBox.setText(phrase);
         }
     }
 
     public void translatePhrase(View view) {
-            int position = langSpinner.getSelectedItemPosition();
-            langSelected = langIdList.get(position);
-            String text = phraseBox.getText().toString();
-            new TranslationTask().execute(text);
+        int position = langSpinner.getSelectedItemPosition();
+        langSelected = langIdList.get(position);
+        String text = phraseBox.getText().toString();
+        new TranslationTask().execute(text);
 
+        Snackbar.make(
+                view,
+                "Translating .....",
+                Snackbar.LENGTH_LONG
+
+        ).show();
     }
 
     private TextToSpeech initTextToSpeechService() {
@@ -163,7 +164,7 @@ public class TranslateActivity extends AppCompatActivity {
     }
 
     @SuppressLint("StaticFieldLeak")
-    private class SynthesisTask extends AsyncTask<String, Void,String> {
+    private class SynthesisTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
             SynthesizeOptions synthesizeOptions = new
@@ -181,5 +182,12 @@ public class TranslateActivity extends AppCompatActivity {
     public void getPronunciation(View view) {
         String text = translatedPhraseView.getText().toString();
         new SynthesisTask().execute(text);
+
+        Snackbar.make(
+                view,
+                "Please wait a moment ......",
+                Snackbar.LENGTH_LONG
+
+        ).show();
     }
 }

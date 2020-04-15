@@ -14,10 +14,13 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 public class AddPhraseActivity extends AppCompatActivity {
     private TextInputLayout addedDescription;
+    private TextInputEditText editText;
     private PhraseViewModel phraseViewModel;
 
     @Override
@@ -36,17 +39,19 @@ public class AddPhraseActivity extends AppCompatActivity {
         //noinspection deprecation
         phraseViewModel = ViewModelProviders.of(this).get(PhraseViewModel.class);
         addedDescription = findViewById(R.id.addTextField);
+        editText = findViewById(R.id.addPhraseETV);
     }
 
     public void addPhrase(View view) {
-        savePhrase();
-    }
-
-    private void savePhrase(){
         String description = addedDescription.getEditText().getText().toString();
 
         if (description.trim().isEmpty()){
-            Toast.makeText(this,"Please enter the phrase you want to save.",Toast.LENGTH_SHORT).show();
+            Snackbar.make(
+                    view,
+                    "Please enter the phrase you want to save.",
+                    Snackbar.LENGTH_LONG
+
+            ).show();
             return;
         }
 
@@ -54,6 +59,13 @@ public class AddPhraseActivity extends AppCompatActivity {
         Log.i(String.valueOf(phrase), "extracted phrase");
         phraseViewModel.insert(phrase);
 
-        Toast.makeText(this,"Phrase Saved",Toast.LENGTH_SHORT).show();
+        Snackbar.make(
+                view,
+                "Phrase Saved",
+                Snackbar.LENGTH_SHORT
+
+        ).show();
     }
+
+
 }

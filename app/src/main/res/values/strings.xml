@@ -24,4 +24,5 @@
     <string name="lang_subscriptions">Pick the languages you want</string>
     <string name="get_saved_phrase">Use Saved Phrase</string>
     <string name="type_something">Type Something</string>
+    <string name="subscribe">Subscribe</string>
 </resources>

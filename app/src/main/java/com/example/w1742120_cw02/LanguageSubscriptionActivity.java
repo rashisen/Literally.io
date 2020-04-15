@@ -14,6 +14,7 @@ import android.view.WindowManager;
 
 
 import com.google.android.material.checkbox.MaterialCheckBox;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,11 +67,6 @@ public class LanguageSubscriptionActivity extends AppCompatActivity {
                              lang.setCheckValue(1);
                          }
                      }
-/*
-                     lang = new Language(language.getLangId(),language.getLanguage());
-                     lang.setCheckValue(1);
-                     languageViewModel.update(lang);
-*/
 
                  }
                  else if (language.getCheckValue() == 1){
@@ -79,9 +75,6 @@ public class LanguageSubscriptionActivity extends AppCompatActivity {
                              lang.setCheckValue(0);
                          }
                      }
-/*                     lang = new Language(language.getLangId(),language.getLanguage());
-                     lang.setCheckValue(0);
-                     languageViewModel.update(lang);*/
 
                  }
             }
@@ -93,6 +86,14 @@ public class LanguageSubscriptionActivity extends AppCompatActivity {
     public void SubscribeLang(View view) {
         for (Language lang: langList) {
             languageViewModel.update(lang);
+
         }
+
+        Snackbar.make(
+                view,
+                "Changes for Subscriptions saved.",
+                Snackbar.LENGTH_SHORT
+
+        ).show();
     }
 }
