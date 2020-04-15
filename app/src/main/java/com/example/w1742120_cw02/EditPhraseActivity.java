@@ -81,7 +81,7 @@ public class EditPhraseActivity extends AppCompatActivity {
                         dialog.cancel();
                     }
                 });
-        
+
         phraseDescription = adapter.selectedPhrase.toString();
         input.setText(phraseDescription);
         alertDialog.show();
