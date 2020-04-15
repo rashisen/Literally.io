@@ -11,11 +11,13 @@ import java.util.List;
 public class LanguageViewModel extends AndroidViewModel {
     private  LanguageRepository languageRepository;
     private LiveData<List<Language>> allLanguages;
+    private LiveData<List<Language>> allSubscribedLanguages;
 
     public LanguageViewModel(@NonNull Application application) {
         super(application);
         languageRepository = new LanguageRepository(application);
         allLanguages = languageRepository.getAllLanguages();
+        allSubscribedLanguages = languageRepository.getSubscribedLanguages();
     }
 
     public void insert(Language language){
@@ -31,6 +33,10 @@ public class LanguageViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<Language>> getAllLanguages() {
+        return allLanguages;
+    }
+
+    public LiveData<List<Language>> getAllSubscribedLanguages() {
         return allLanguages;
     }
 

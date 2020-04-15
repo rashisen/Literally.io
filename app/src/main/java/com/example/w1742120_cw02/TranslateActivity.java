@@ -2,29 +2,127 @@ package com.example.w1742120_cw02;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-
-import com.google.android.material.snackbar.Snackbar;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textview.MaterialTextView;
+import com.ibm.cloud.sdk.core.http.HttpMediaType;
+import com.ibm.cloud.sdk.core.security.Authenticator;
+import com.ibm.cloud.sdk.core.security.IamAuthenticator;
+import com.ibm.cloud.sdk.core.service.exception.BadRequestException;
+import com.ibm.watson.developer_cloud.android.library.audio.StreamPlayer;
+import com.ibm.watson.language_translator.v3.LanguageTranslator;
+import com.ibm.watson.language_translator.v3.model.TranslateOptions;
+import com.ibm.watson.language_translator.v3.model.TranslationResult;
+import com.ibm.watson.text_to_speech.v1.TextToSpeech;
+import com.ibm.watson.text_to_speech.v1.model.SynthesizeOptions;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.example.w1742120_cw02.GetSavedPhrase.EXTRA_PHRASE;
 
 public class TranslateActivity extends AppCompatActivity {
     public static final int PHRASE_REQUEST = 1;
     private TextInputEditText phraseBox;
+    private static MaterialTextView translatedPhraseView;
+    private Spinner langSpinner;
+    private ArrayList<String> langIdList = new ArrayList<>();
+    private ArrayList<String> langNameList = new ArrayList<>();
+    private static LanguageTranslator translationService;
+    private static String langSelected;
+    private static StreamPlayer player = new StreamPlayer();
+    private static TextToSpeech speechService;
+    private static TranslationResult result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_translate);
         phraseBox = findViewById(R.id.tPhrase);
+        translatedPhraseView = findViewById(R.id.displayTphrase);
+        translationService = initLanguageTranslatorService();
+        speechService = initTextToSpeechService();
+
+
+        //view model
+        //noinspection deprecation
+        LanguageViewModel languageViewModel = ViewModelProviders.of(this).get(LanguageViewModel.class);
+        languageViewModel.getAllSubscribedLanguages().observe(this, new Observer<List<Language>>() {
+            @Override
+            public void onChanged(List<Language> languages) {
+                for (Language lang: languages
+                     ) {
+                    String id = lang.getLangId();
+                    String name = lang.getLanguage();
+                    Log.i("lang", "onChanged: "+id);
+                    if (lang.getCheckValue()==1){
+                        langIdList.add(id);
+                        langNameList.add(name);
+
+                    }
+
+                }
+
+                //dropdown list for subscribed languages
+                langSpinner = findViewById(R.id.langSpinner);
+                ArrayAdapter spinnerAdapter = new ArrayAdapter(TranslateActivity.this, android.R.layout.simple_spinner_item, langNameList.toArray());
+                spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                langSpinner.setAdapter(spinnerAdapter);
+            }
+        });
+
+
+    }
+
+    private LanguageTranslator initLanguageTranslatorService(){
+        IamAuthenticator authenticator = new IamAuthenticator(getString(R.string.langTranslatorAPIKey));
+        LanguageTranslator service = new LanguageTranslator(getString(R.string.cloudVersion), authenticator);
+        service.setServiceUrl(getString(R.string.language_translator_url));
+        return service;
+    }
+
+
+    private static class TranslationTask extends AsyncTask<String,Void,String>{
+
+        @Override
+        protected String doInBackground(String... params) {
+            TranslateOptions translateOptions = new
+                    TranslateOptions.Builder()
+                    .addText(params[0])
+                    .source(com.ibm.watson.language_translator.v3.util.Language.ENGLISH)
+                    .target(langSelected)
+                    .build();
+
+            try {
+                result = translationService.translate(translateOptions).execute().getResult();
+            }catch (com.ibm.cloud.sdk.core.service.exception.NotFoundException nfe){
+                return "conversion service for this language is not available.";
+            }catch (com.ibm.cloud.sdk.core.service.exception.BadRequestException bre){
+                return "Cannot convert phrases to the same language";
+            }
+
+            return result.getTranslations().get(0).getTranslation();
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            translatedPhraseView.setText(s);
+        }
     }
 
     public void getSavedPhrases(View view) {
-        Intent intent = new Intent(TranslateActivity.this, DisplayPhraseActivity.class);
+        Intent intent = new Intent(TranslateActivity.this, GetSavedPhrase.class);
         startActivityForResult(intent, PHRASE_REQUEST);
     }
 
@@ -34,8 +132,43 @@ public class TranslateActivity extends AppCompatActivity {
         if (requestCode ==PHRASE_REQUEST && resultCode == RESULT_OK && !data.getStringExtra(EXTRA_PHRASE).equalsIgnoreCase("")){
             String phrase = data.getStringExtra(EXTRA_PHRASE);
             phraseBox.setText(phrase);
-        }else {
-            Snackbar.make(phraseBox, "Could not retreive phrase", Snackbar.LENGTH_SHORT);
         }
+    }
+
+    public void translatePhrase(View view) {
+            int position = langSpinner.getSelectedItemPosition();
+            langSelected = langIdList.get(position);
+            String text = phraseBox.getText().toString();
+            new TranslationTask().execute(text);
+
+    }
+
+    private TextToSpeech initTextToSpeechService() {
+        Authenticator authenticator = new
+                IamAuthenticator(getString(R.string.textToSpeechAPIkey));
+        TextToSpeech service = new com.ibm.watson.text_to_speech.v1.TextToSpeech(authenticator);
+        service.setServiceUrl(getString(R.string.textToSpeechURL));
+        return service;
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    private class SynthesisTask extends AsyncTask<String, Void,String> {
+        @Override
+        protected String doInBackground(String... params) {
+            SynthesizeOptions synthesizeOptions = new
+                    SynthesizeOptions.Builder()
+                    .text(params[0])
+                    .voice(SynthesizeOptions.Voice.EN_US_LISAVOICE)
+                    .accept(HttpMediaType.AUDIO_WAV)
+                    .build();
+            player.playStream(speechService.synthesize(synthesizeOptions).execute()
+                    .getResult());
+            return getString(R.string.did_synthesize);
+        }
+    }
+
+    public void getPronunciation(View view) {
+        String text = translatedPhraseView.getText().toString();
+        new SynthesisTask().execute(text);
     }
 }

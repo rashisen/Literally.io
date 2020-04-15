@@ -14,7 +14,7 @@ import com.ibm.watson.language_translator.v3.LanguageTranslator;
 
 import java.util.ArrayList;
 
-@Database(entities = {Phrase.class, Language.class}, version = 2, exportSchema = false)
+@Database(entities = {Phrase.class, Language.class}, version = 3, exportSchema = false)
 public abstract class TioDatabase extends RoomDatabase {
     private static final String LANG_API_KEY = "66Z8U81RxsQc9vOnoMptFC5VX3TFOgrg9yCjkAInZqhE";
     private static final String LANG_URL = "https://api.us-south.language-translator.watson.cloud.ibm.com/instances/8cc0fc59-c2a3-435d-916d-839db036f9ef";

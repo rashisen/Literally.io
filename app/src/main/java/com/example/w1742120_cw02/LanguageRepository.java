@@ -11,11 +11,13 @@ public class LanguageRepository {
 
     private LanguageDao languageDao;
     private LiveData<List<Language>> allLanguages;
+    private LiveData<List<Language>> allSubscribedLanguages;
 
     public LanguageRepository(Application application){
         TioDatabase tioDatabase = TioDatabase.getInstance(application);
         languageDao = tioDatabase.languageDao();
         allLanguages = languageDao.getAllLanguages();
+        allSubscribedLanguages = languageDao.subscribedLanguages();
     }
 
     public void insert(Language language){
@@ -34,9 +36,14 @@ public class LanguageRepository {
         new DeleteLangAsyncTask(languageDao).execute(language);
     }
 
+    public LiveData<List<Language>> getSubscribedLanguages(){
+        return allSubscribedLanguages;
+    }
+
     public LiveData<List<Language>> getAllLanguages(){
         return allLanguages;
     }
+
 
     private static class InsertLangAsyncTask extends AsyncTask<Language,Void,Void> {
         private LanguageDao languageDao;

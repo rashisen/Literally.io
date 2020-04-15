@@ -18,4 +18,9 @@
     <string name="lang_subscrip">Language Subscriptions</string>
     <string name="get_saved_phrase">Get Saved Phrase</string>
     <string name="translate_phrase">Translate Phrase</string>
+    <string name="translateBtn">Translate</string>
+    <string name="textToSpeechAPIkey">sCCxVj8goFKoVntRaOQrSYGwGQq2SBqfWJdTi8PlZSVr</string>
+    <string name="textToSpeechURL">https://api.us-south.text-to-speech.watson.cloud.ibm.com/instances/69578caf-9a4f-4a1d-85d6-e86a431aee3e</string>
+    <string name="did_synthesize">Did synthesize</string>
+    <string name="saved_phrases">Saved Phrases</string>
 </resources>

@@ -33,18 +33,42 @@ public class EditPhraseAdapter extends RecyclerView.Adapter<EditPhraseAdapter.Ed
         return new EditPhraseHolder(itemView);
     }
 
+    Phrase selectedPhrase;
+    RadioButton rb;
     @Override
     public void onBindViewHolder(@NonNull EditPhraseHolder holder, int position) {
-        Phrase currentPhrase = phrases.get(position);
-        holder.phraseDescrip.setText(currentPhrase.getDescription());
+        holder.phraseDescrip.setText(phrases.get(position).getDescription());
 
-        int id = (position+1)*100;
-        for (Phrase phrase : phrases){
-            RadioButton rb = new RadioButton(EditPhraseAdapter.this.context);
-            rb.setId(id++);
+        //implement a click listener on the radio button from the viewholder
+        //once clicked current object should be recorded (instance variable)
+        //once you click it i have to record two things - the radio button, item
 
-            holder.radioGroup.addView(rb);
+
+        holder.radioBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (rb != null){
+                    rb.setChecked(false);
+                    rb = holder.radioBtn;
+                    selectedPhrase = phrases.get(position);
+                }else {
+                    rb = holder.radioBtn;
+                    rb.setChecked(true);
+                    selectedPhrase = phrases.get(position);
+                }
+
+                notifyDataSetChanged();
+            }
+        });
+
+        for (int i=0; i<phrases.size(); i++){
+            if (phrases.get(position) == selectedPhrase){
+                holder.radioBtn.setChecked(true);
+            }else
+                holder.radioBtn.setChecked(false);
+
         }
+
     }
 
     @Override
@@ -59,34 +83,13 @@ public class EditPhraseAdapter extends RecyclerView.Adapter<EditPhraseAdapter.Ed
 
     class EditPhraseHolder extends RecyclerView.ViewHolder{
         private TextView phraseDescrip;
-        private RadioGroup radioGroup;
+        private RadioButton radioBtn;//radio button
 
 
         public EditPhraseHolder(@NonNull View itemView) {
             super(itemView);
             phraseDescrip = itemView.findViewById(R.id.txt_rbview_phrase);
-            radioGroup = itemView.findViewById(R.id.radio_grp);
-
-            radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener(){
-
-                @Override
-                public void onCheckedChanged(RadioGroup group, int checkedId) {
-                    //since only one phrase is allowed to be selected this logic clears the previous selection
-                    //it checks the state of the last radioGroup and clears it if it meets the conditions
-
-                    if (lastCheckedRadioGroup != null
-                    && lastCheckedRadioGroup.getCheckedRadioButtonId() != radioGroup.getCheckedRadioButtonId()
-                    && lastCheckedRadioGroup.getCheckedRadioButtonId() != -1){
-
-                        lastCheckedRadioGroup.clearCheck();
-
-                        Toast.makeText(EditPhraseAdapter.this.context,
-                                "Radio button clicked " + radioGroup.getCheckedRadioButtonId(),
-                                Toast.LENGTH_SHORT).show();
-                    }
-                    lastCheckedRadioGroup = radioGroup;
-                }
-            });
+            radioBtn = itemView.findViewById(R.id.radio_btn);
         }
     }
 }

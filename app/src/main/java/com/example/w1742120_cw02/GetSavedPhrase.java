@@ -3,7 +3,6 @@ package com.example.w1742120_cw02;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -42,16 +41,11 @@ public class GetSavedPhrase extends AppCompatActivity {
         adapter.setOnCardClickListener(new AddPhraseAdapter.OnCardClickListener() {
             @Override
             public void onCardClick(Phrase phrase) {
-                Log.i("Translate sample text", "/PRE"+phrase.getDescription());
+                Log.i("textval", "/PRE"+phrase.getDescription());
                 Intent intent = new Intent();
                 selctedPhrase = phrase.getDescription();
-                if (EXTRA_PHRASE != null){
-                    intent.putExtra(EXTRA_PHRASE,selctedPhrase);
-                    setResult(RESULT_OK, intent);
-                }else {
-                    intent.putExtra(EXTRA_PHRASE, "");
-                    setResult(RESULT_OK, intent);
-                }
+                intent.putExtra(EXTRA_PHRASE,selctedPhrase);
+                setResult(RESULT_OK, intent);
                 finish();
 
             }

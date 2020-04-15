@@ -26,4 +26,13 @@ public class Phrase {
     public void setId(int id) {
         this.id = id;
     }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return description;
+    }
 }

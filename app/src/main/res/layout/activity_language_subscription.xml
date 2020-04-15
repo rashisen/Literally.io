@@ -10,9 +10,9 @@
         android:id="@+id/imageView"
         android:layout_width="60dp"
         android:layout_height="49dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="60dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.193"
+        app:layout_constraintHorizontal_bias="0.108"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/language"
@@ -22,13 +22,13 @@
         android:id="@+id/ap_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="84dp"
         android:fontFamily="sans-serif-black"
         android:text="@string/lang_subscrip"
         android:textColor="#FE3DBC"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.063"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,5 +45,23 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.833"
         tools:listitem="@layout/phrase_item" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/subscribeBtn"
+        android:onClick="SubscribeLang"
+        android:layout_width="78dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#FADDF0"
+        android:paddingStart="-1dp"
+        app:backgroundTint="@color/material_on_primary_emphasis_high_type"
+        app:icon="@drawable/subscribe"
+        app:iconSize="80dp"
+        app:iconTint="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.951"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

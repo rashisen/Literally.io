@@ -1,5 +1,6 @@
 package com.example.w1742120_cw02;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,7 @@ public class AddPhraseAdapter extends RecyclerView.Adapter<AddPhraseAdapter.Phra
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PhraseHolder holder, int position) {
+    public void onBindViewHolder(@NonNull PhraseHolder holder, int position){
         Phrase currentPhrase = phrases.get(position);
         holder.textViewPhrase.setText(currentPhrase.getDescription());
     }
@@ -53,10 +54,9 @@ public class AddPhraseAdapter extends RecyclerView.Adapter<AddPhraseAdapter.Phra
                     int position = getAdapterPosition();
                     if (listener != null && position != RecyclerView.NO_POSITION){
                         listener.onCardClick(phrases.get(position));
+                        Log.i("phrasevalue", "Phrase val : "+phrases.get(position));
                     }
-
                 }
-
             });
 
         }

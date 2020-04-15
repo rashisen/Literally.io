@@ -45,14 +45,13 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/getSvdPhraseBtn"
-            android:onClick="getSavedPhrases"
-            android:layout_width="wrap_content"
+            android:layout_width="42dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:text="@string/get_saved_phrase"
+            android:onClick="getSavedPhrases"
+            android:text="+"
             android:textAllCaps="false"
-            android:textSize="12sp"
-            android:layout_marginBottom="10dp">
+            android:textSize="15sp">
 
         </com.google.android.material.button.MaterialButton>
 
@@ -81,42 +80,71 @@
 
 
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="40dp"
-            android:layout_height="0dp"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:cropToPadding="false"
-            android:paddingTop="-10dp"
-            android:paddingBottom="-10dp"
-            android:rotation="90"
-            app:srcCompat="@drawable/transfer" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_marginStart="30dp"
+            android:orientation="horizontal">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/displayTphrase"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/translateBtn"
+                android:onClick="translatePhrase"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/translateBtn"
+                android:textAllCaps="false"
+                android:textSize="12sp">
+
+            </com.google.android.material.button.MaterialButton>
+
+            <Spinner
+                android:id="@+id/langSpinner"
+                android:layout_width="165dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="14dp">
+
+            </Spinner>
+        </LinearLayout>
+
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:textColor="@color/colorAccent"
-            android:visibility="visible" />
+            android:layout_marginHorizontal="30dp"
+            app:cardBackgroundColor="@color/colorPrimary">
 
-        <com.google.android.material.button.MaterialButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:text="@string/translate_phrase"
-            android:textAllCaps="false"
-            android:textSize="12sp"
-            android:layout_marginTop="10dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-        </com.google.android.material.button.MaterialButton>
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/displayTphrase"
+                    android:layout_width="match_parent"
+                    android:layout_height="148dp"
+                    android:textColor="@color/colorSecondary"
+                    android:gravity="center"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/pronounceBtn"
+                    android:layout_width="39dp"
+                    android:layout_height="43dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="10dp"
+                    android:onClick="getPronunciation"
+                    app:backgroundTint="@color/colorPrimary"
+                    app:icon="@android:drawable/ic_lock_silent_mode_off"
+                    app:iconGravity="end"
+                    app:iconTint="@color/colorSecondary">
+                </com.google.android.material.button.MaterialButton>
+
+            </LinearLayout>
+
+
+
+        </com.google.android.material.card.MaterialCardView>
+
     </LinearLayout>
-
-
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

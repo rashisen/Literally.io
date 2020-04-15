@@ -10,22 +10,23 @@
         android:id="@+id/imageView"
         android:layout_width="60dp"
         android:layout_height="49dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="56dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.37"
+        app:layout_constraintHorizontal_bias="0.253"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/language"
         tools:ignore="ContentDescription" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/ap_header"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/editPhraseBtn"
+        android:onClick="editSelectedPhrase"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
         android:fontFamily="sans-serif-black"
         android:text="@string/edit_phrase"
-        android:textColor="#FE3DBC"
+        android:textColor="@color/colorSecondary"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.063"
@@ -45,4 +46,5 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.833"
         tools:listitem="@layout/phrase_item_radiobtn" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

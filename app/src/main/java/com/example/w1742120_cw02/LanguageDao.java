@@ -38,4 +38,7 @@ public interface LanguageDao {
     @Query("SELECT * FROM language_table")
     LiveData<List<Language>> getAllLanguages();
 
+    @Query("SELECT * FROM language_table WHERE checkValue=1")
+    LiveData<List<Language>> subscribedLanguages();
+
 }

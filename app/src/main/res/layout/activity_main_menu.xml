@@ -134,7 +134,7 @@
     <!--button to direct user to the translate activity-->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_main_translate"
-        android:onClick="translatePhrase"
+        android:onClick="translate"
         style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
         android:layout_width="198dp"
         android:layout_height="108dp"

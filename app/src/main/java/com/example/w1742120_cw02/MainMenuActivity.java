@@ -36,7 +36,7 @@ public class MainMenuActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void translatePhrase(View view) {
+    public void translate(View view) {
         Intent intent = new Intent(MainMenuActivity.this, TranslateActivity.class);
         startActivity(intent);
     }

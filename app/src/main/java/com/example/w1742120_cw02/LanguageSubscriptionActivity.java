@@ -7,17 +7,19 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
-
+import android.view.View;
 
 
 import com.google.android.material.checkbox.MaterialCheckBox;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LanguageSubscriptionActivity extends AppCompatActivity {
     private LanguageViewModel languageViewModel;
     private MaterialCheckBox checkBox;
-    private LiveData<List<Language>> languageList;
+    private Language lang;
+    private ArrayList<Language> langList = new ArrayList<>();
 
 
     @Override
@@ -39,6 +41,7 @@ public class LanguageSubscriptionActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<Language> languages) {
                 adapter.setLanguages(languages);
+                langList.addAll(languages);
 
             }
         });
@@ -47,14 +50,28 @@ public class LanguageSubscriptionActivity extends AppCompatActivity {
             @Override
             public void onCardClick(Language language) {
                  if (language.getCheckValue()==0){
-                     Language lang = new Language(language.getLangId(),language.getLanguage());
+                     for (Language lang: langList) {
+                         if (lang.getLangId().equals(language.getLangId())){
+                             lang.setCheckValue(1);
+                         }
+                     }
+/*
+                     lang = new Language(language.getLangId(),language.getLanguage());
                      lang.setCheckValue(1);
                      languageViewModel.update(lang);
+*/
+
                  }
                  else if (language.getCheckValue() == 1){
-                     Language langx = new Language(language.getLangId(),language.getLanguage());
-                     langx.setCheckValue(0);
-                     languageViewModel.update(langx);
+                     for (Language lang: langList) {
+                         if (lang.getLangId().equals(language.getLangId())){
+                             lang.setCheckValue(0);
+                         }
+                     }
+/*                     lang = new Language(language.getLangId(),language.getLanguage());
+                     lang.setCheckValue(0);
+                     languageViewModel.update(lang);*/
+
                  }
             }
         });
@@ -62,4 +79,10 @@ public class LanguageSubscriptionActivity extends AppCompatActivity {
 
     }
 
+    public void SubscribeLang(View view) {
+        for (Language lang: langList) {
+            languageViewModel.update(lang);
+            finish();
+        }
+    }
 }
