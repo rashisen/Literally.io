@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,7 +40,7 @@ public class EditPhraseAdapter extends RecyclerView.Adapter<EditPhraseAdapter.Ed
 
         //implement a click listener on the radio button from the viewholder
         //once clicked current object should be recorded (instance variable)
-        //once you click it i have to record two things - the radio button, item
+        //once you click it  records two things - the radio button, item
 
 
         holder.radioBtn.setOnClickListener(new View.OnClickListener() {

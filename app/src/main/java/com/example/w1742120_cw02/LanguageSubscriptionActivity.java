@@ -2,7 +2,6 @@ package com.example.w1742120_cw02;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -37,9 +36,11 @@ public class LanguageSubscriptionActivity extends AppCompatActivity {
         // finally change the color
         window.setStatusBarColor(ContextCompat.getColor(this,R.color.colorSecondary));
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+
         setContentView(R.layout.activity_language_subscription);
         checkBox = findViewById(R.id.langCheck);
 
+        //recycler view
         RecyclerView recyclerView = findViewById(R.id.langSubscrips);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
@@ -58,6 +59,9 @@ public class LanguageSubscriptionActivity extends AppCompatActivity {
             }
         });
 
+        /**
+         * function to change checkbox value when clicked
+         */
         adapter.setOnCardClickListener(new LangSubscripAdapter.OnCardClickListener() {
             @Override
             public void onCardClick(Language language) {
@@ -83,6 +87,10 @@ public class LanguageSubscriptionActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Function executed when the subscribe button is clicked
+     * @param view
+     */
     public void SubscribeLang(View view) {
         for (Language lang: langList) {
             languageViewModel.update(lang);

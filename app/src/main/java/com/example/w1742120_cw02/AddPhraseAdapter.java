@@ -16,6 +16,8 @@ public class AddPhraseAdapter extends RecyclerView.Adapter<AddPhraseAdapter.Phra
     private List<Phrase> phrases = new ArrayList<>();
     private OnCardClickListener listener;
 
+
+    //inflate the view holder
     @NonNull
     @Override
     public PhraseHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -24,21 +26,25 @@ public class AddPhraseAdapter extends RecyclerView.Adapter<AddPhraseAdapter.Phra
         return new PhraseHolder(itemView);
     }
 
+    //set holder with phrase
     @Override
     public void onBindViewHolder(@NonNull PhraseHolder holder, int position){
         Phrase currentPhrase = phrases.get(position);
         holder.textViewPhrase.setText(currentPhrase.getDescription());
     }
 
+    //get total number of phrases
     @Override
     public int getItemCount() {
         return phrases.size();
     }
 
+    //set phrases
     public void setPhrases(List<Phrase> phrases){
         this.phrases = phrases;
         notifyDataSetChanged();
     }
+
 
     class PhraseHolder extends RecyclerView.ViewHolder{
         private TextView textViewPhrase;

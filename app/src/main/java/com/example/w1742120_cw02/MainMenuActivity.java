@@ -47,26 +47,31 @@ public class MainMenuActivity extends AppCompatActivity {
 
     }
 
+    //add phrase activity
     public void addPhrasePage(View view) {
         Intent intent = new Intent(MainMenuActivity.this, AddPhraseActivity.class);
         startActivity(intent);
     }
 
+    //display phrase activity
     public void displayPhrase(View view) {
         Intent intent = new Intent(MainMenuActivity.this, DisplayPhraseActivity.class);
         startActivity(intent);
     }
 
+    //edit phrase activity
     public void editPhrase(View view) {
         Intent intent = new Intent(MainMenuActivity.this, EditPhraseActivity.class);
         startActivity(intent);
     }
 
+    //language subscription activity
     public void languageSubscription(View view) {
         Intent intent = new Intent(MainMenuActivity.this, LanguageSubscriptionActivity.class);
         startActivity(intent);
     }
 
+    //translate activity
     public void translate(View view) {
         Intent intent = new Intent(MainMenuActivity.this, TranslateActivity.class);
         startActivity(intent);

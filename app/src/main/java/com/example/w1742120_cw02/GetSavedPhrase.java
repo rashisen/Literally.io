@@ -22,6 +22,7 @@ public class GetSavedPhrase extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_phrase);
 
+        //recycler view
         RecyclerView recyclerView = findViewById(R.id.displayallRV);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
@@ -38,6 +39,7 @@ public class GetSavedPhrase extends AppCompatActivity {
             }
         });
 
+        //get a saved phrase from the display phrase activity
         adapter.setOnCardClickListener(new AddPhraseAdapter.OnCardClickListener() {
             @Override
             public void onCardClick(Phrase phrase) {

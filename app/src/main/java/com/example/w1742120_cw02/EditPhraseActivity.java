@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -63,7 +62,13 @@ public class EditPhraseActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * function executed when the edit phrase button is clicked
+     * @param view
+     */
     public void editSelectedPhrase(View view) {
+
+        //container to edit the phrase
         alertDialog = new AlertDialog.Builder(EditPhraseActivity.this);
         alertDialog.setTitle("Edit Phrase");
         input = new EditText(EditPhraseActivity.this);
@@ -75,6 +80,7 @@ public class EditPhraseActivity extends AppCompatActivity {
         input.setLayoutParams(lp);
         alertDialog.setView(input);
 
+        //to save changes
         alertDialog.setPositiveButton("Save Changes",
                 new DialogInterface.OnClickListener() {
                     @Override
@@ -82,6 +88,7 @@ public class EditPhraseActivity extends AppCompatActivity {
                         text = input.getText().toString();
                         selectedPhrase = adapter.selectedPhrase;
                         selectedPhrase.setDescription(text);
+                        //update the phrase in the database
                         phraseViewModel.update(selectedPhrase);
 
                         Snackbar.make(
@@ -94,6 +101,7 @@ public class EditPhraseActivity extends AppCompatActivity {
                     }
                 });
 
+        //to discard the changes
         alertDialog.setNegativeButton("Cancel",
                 new DialogInterface.OnClickListener() {
                     @Override

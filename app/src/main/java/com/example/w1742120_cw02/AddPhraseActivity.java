@@ -5,12 +5,11 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
+
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 
@@ -34,6 +33,8 @@ public class AddPhraseActivity extends AppCompatActivity {
         // finally change the color
         window.setStatusBarColor(ContextCompat.getColor(this,R.color.colorSecondary));
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+
+        //set layout to view
         setContentView(R.layout.activity_add_phrase);
 
         //noinspection deprecation
@@ -42,9 +43,14 @@ public class AddPhraseActivity extends AppCompatActivity {
         editText = findViewById(R.id.addPhraseETV);
     }
 
+    /**
+     * Function executed when the save and submit button is clicked
+     * @param view
+     */
     public void addPhrase(View view) {
         String description = addedDescription.getEditText().getText().toString();
 
+        //if empty request user to add a phrase
         if (description.trim().isEmpty()){
             Snackbar.make(
                     view,
@@ -57,6 +63,7 @@ public class AddPhraseActivity extends AppCompatActivity {
 
         Phrase phrase = new Phrase(description);
         Log.i(String.valueOf(phrase), "extracted phrase");
+        //insert phrase to database
         phraseViewModel.insert(phrase);
 
         Snackbar.make(
@@ -65,6 +72,9 @@ public class AddPhraseActivity extends AppCompatActivity {
                 Snackbar.LENGTH_SHORT
 
         ).show();
+
+        //clear text
+        editText.setText("");
     }
 
 

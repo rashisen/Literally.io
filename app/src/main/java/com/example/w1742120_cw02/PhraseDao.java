@@ -24,4 +24,7 @@ public interface PhraseDao {
 
     @Query("SELECT * FROM phrase_table")
     LiveData<List<Phrase>> getAllPhrases();
+
+    @Query("SELECT * FROM phrase_table ORDER BY description ASC")
+    LiveData<List<Phrase>> getAllSortedPhrases();
 }

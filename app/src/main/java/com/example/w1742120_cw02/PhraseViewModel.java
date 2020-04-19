@@ -11,11 +11,13 @@ import java.util.List;
 public class PhraseViewModel extends AndroidViewModel {
     private PhraseRepository repository;
     private LiveData<List<Phrase>> allPhrases;
+    private LiveData<List<Phrase>> allSortedPhrases;
 
     public PhraseViewModel(@NonNull Application application) {
         super(application);
         repository = new PhraseRepository(application);
         allPhrases = repository.getAllPhrases();
+        allSortedPhrases = repository.getAllSortedPhrases();
     }
 
     public void insert(Phrase phrase){
@@ -38,6 +40,8 @@ public class PhraseViewModel extends AndroidViewModel {
         return allPhrases;
     }
 
-
+    public LiveData<List<Phrase>> getAllSortedPhrasesPhrases() {
+        return allSortedPhrases;
+    }
 
 }

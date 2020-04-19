@@ -56,6 +56,7 @@ public class TranslateActivity extends AppCompatActivity {
         // finally change the color
         window.setStatusBarColor(ContextCompat.getColor(this, R.color.colorSecondary));
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+
         setContentView(R.layout.activity_translate);
         phraseBox = findViewById(R.id.tPhrase);
         translatedPhraseView = findViewById(R.id.displayTphrase);
@@ -141,6 +142,10 @@ public class TranslateActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Function executed when the translate button is clicked
+     * @param view
+     */
     public void translatePhrase(View view) {
         int position = langSpinner.getSelectedItemPosition();
         langSelected = langIdList.get(position);
@@ -155,6 +160,7 @@ public class TranslateActivity extends AppCompatActivity {
         ).show();
     }
 
+    //text to speech service
     private TextToSpeech initTextToSpeechService() {
         Authenticator authenticator = new
                 IamAuthenticator(getString(R.string.textToSpeechAPIkey));
@@ -179,6 +185,10 @@ public class TranslateActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * function executed when the pronounce button is executed
+     * @param view
+     */
     public void getPronunciation(View view) {
         String text = translatedPhraseView.getText().toString();
         new SynthesisTask().execute(text);

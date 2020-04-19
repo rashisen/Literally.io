@@ -9,12 +9,15 @@ public class PhraseRepository {
 
     private PhraseDao phraseDao;
     private LiveData<List<Phrase>> allPhrases;
+    private LiveData<List<Phrase>> allSortedPhrases;
 
     public PhraseRepository(Application application){
         TioDatabase tioDatabase = TioDatabase.getInstance(application);
         phraseDao = tioDatabase.phraseDao();
         allPhrases = phraseDao.getAllPhrases();
+        allSortedPhrases = phraseDao.getAllSortedPhrases();
     }
+
 
     public void insert(Phrase phrase){
         new InsertPhraseAsyncTask(phraseDao).execute(phrase);
@@ -36,8 +39,14 @@ public class PhraseRepository {
         return allPhrases;
     }
 
+    public LiveData<List<Phrase>> getAllSortedPhrases(){
+        return allSortedPhrases;
+    }
 
 
+    /**
+     * Async task to insert phrase
+     */
     private static class InsertPhraseAsyncTask extends AsyncTask<Phrase,Void,Void>{
         private PhraseDao phraseDao;
 
@@ -54,6 +63,9 @@ public class PhraseRepository {
     }
 
 
+    /**
+     * Async task to update phrase
+     */
     private static class UpdatePhraseAsyncTask extends AsyncTask<Phrase,Void,Void>{
         private PhraseDao phraseDao;
 
@@ -70,6 +82,9 @@ public class PhraseRepository {
     }
 
 
+    /**
+     * Async delete phrase activity
+     */
     private static class DeletePhraseAsyncTask extends AsyncTask<Phrase,Void,Void>{
         private PhraseDao phraseDao;
 
@@ -86,7 +101,9 @@ public class PhraseRepository {
     }
 
 
-
+    /**
+     * Async task to delete all the phrases
+     */
     private static class DeleteAllPhraseAsyncTask extends AsyncTask<Void,Void,Void>{
         private PhraseDao phraseDao;
 

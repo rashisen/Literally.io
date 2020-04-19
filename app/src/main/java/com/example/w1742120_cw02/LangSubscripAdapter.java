@@ -3,7 +3,6 @@ package com.example.w1742120_cw02;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,6 +28,8 @@ public class LangSubscripAdapter extends RecyclerView.Adapter<LangSubscripAdapte
         Language currentLang = languages.get(position);
         holder.langName.setText(currentLang.getLanguage());
         holder.langID.setText(currentLang.getLangId());
+
+        //setting checked state of check boxes
             if (currentLang.getCheckValue() == 1){
                 holder.checkedState.setChecked(true);
             }else if (currentLang.getCheckValue() == 0){
@@ -76,6 +77,7 @@ public class LangSubscripAdapter extends RecyclerView.Adapter<LangSubscripAdapte
             });
 
 
+            //onClick listener for checkboxes
             checkedState.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

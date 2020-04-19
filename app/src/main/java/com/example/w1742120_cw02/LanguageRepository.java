@@ -20,31 +20,39 @@ public class LanguageRepository {
         allSubscribedLanguages = languageDao.subscribedLanguages();
     }
 
+    //insert a language
     public void insert(Language language){
         new InsertLangAsyncTask(languageDao).execute(language);
     }
 
+    //update a checkbox value
     public void updateCheck(Language language){
         new UpdateCheckAsyncTask(languageDao).execute(language);
     }
 
+    //update language
     public void update(Language language){
         new UpdateLangAsyncTask(languageDao).execute(language);
     }
 
+    //delete language
     public void delete(Language language){
         new DeleteLangAsyncTask(languageDao).execute(language);
     }
 
+    //return all subscribed languages
     public LiveData<List<Language>> getSubscribedLanguages(){
         return allSubscribedLanguages;
     }
 
+    //return all languages
     public LiveData<List<Language>> getAllLanguages(){
         return allLanguages;
     }
 
-
+    /**
+     * Async task to insert a language to the database
+     */
     private static class InsertLangAsyncTask extends AsyncTask<Language,Void,Void> {
         private LanguageDao languageDao;
 
@@ -59,6 +67,10 @@ public class LanguageRepository {
         }
     }
 
+
+    /**
+     * Async task to update language
+     */
     private static class UpdateLangAsyncTask extends AsyncTask<Language,Void,Void> {
         private LanguageDao languageDao;
 
@@ -73,6 +85,9 @@ public class LanguageRepository {
         }
     }
 
+    /**
+     * Async task to delete language from database
+     */
     private static class DeleteLangAsyncTask extends AsyncTask<Language,Void,Void> {
         private LanguageDao languageDao;
 
@@ -88,6 +103,9 @@ public class LanguageRepository {
     }
 
 
+    /**
+     * Async task to delete all languages from the database
+     */
     private static class DeleteAllLangAsyncTask extends AsyncTask<Void,Void,Void> {
         private LanguageDao languageDao;
 
@@ -102,6 +120,9 @@ public class LanguageRepository {
         }
     }
 
+    /**
+     * Async task to update the checkbox value
+     */
     private static class UpdateCheckAsyncTask extends AsyncTask<Language, Void, Void>{
 
         private LanguageDao languageDao;

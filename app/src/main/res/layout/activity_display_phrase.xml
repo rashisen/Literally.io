@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/imageView"
-            android:text="@string/display_phrase"
+            android:text="@string/saved_phrase"
             android:textColor="#FE3DBC"
             android:textSize="32sp" />
     </RelativeLayout>

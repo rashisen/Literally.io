@@ -21,7 +21,7 @@ public abstract class TioDatabase extends RoomDatabase {
     private static final String LANG_VERSION = "2018-05-01";
 
     /**
-     * created because this class needs to be turned into a singleton
+     * created because this class needs to be turned into a singleton.
      * multiple instances of this class is not allowed
      */
     private static TioDatabase instance;

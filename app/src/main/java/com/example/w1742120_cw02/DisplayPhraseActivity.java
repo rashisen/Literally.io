@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import java.util.Collections;
 import java.util.List;
 
 public class DisplayPhraseActivity extends AppCompatActivity {
@@ -29,6 +30,7 @@ public class DisplayPhraseActivity extends AppCompatActivity {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         setContentView(R.layout.activity_display_phrase);
 
+        //recycler view
         RecyclerView recyclerView = findViewById(R.id.displayallRV);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
@@ -38,7 +40,7 @@ public class DisplayPhraseActivity extends AppCompatActivity {
 
         //noinspection deprecation
         phraseViewModel = ViewModelProviders.of(this).get(PhraseViewModel.class);
-        phraseViewModel.getAllPhrases().observe(this, new Observer<List<Phrase>>() {
+        phraseViewModel.getAllSortedPhrasesPhrases().observe(this, new Observer<List<Phrase>>() {
             @Override
             public void onChanged(List<Phrase> phrases) {
                 adapter.setPhrases(phrases);
